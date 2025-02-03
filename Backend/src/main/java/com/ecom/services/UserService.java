@@ -5,4 +5,8 @@ public class UserService {
 	public void addAdmin() {
 		
 	}
+	
+	public void addCustomer() {
+		
+	}
 }
