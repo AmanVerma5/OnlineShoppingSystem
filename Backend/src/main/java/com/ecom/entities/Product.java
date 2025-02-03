@@ -2,6 +2,7 @@ package com.ecom.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -19,17 +20,18 @@ public class Product extends BaseEntity {
 	private User vendor;
 
 	private String name;
-	
+
 	private String description;
-	
+
 	private double price;
-	
+
 	private int quantityInStock;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
-	
-	private String imageUrl;
+
+	@Lob
+	private byte[] image;
 
 }
