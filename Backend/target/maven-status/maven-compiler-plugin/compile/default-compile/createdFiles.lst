@@ -1,0 +1,16 @@
+com\ecom\entities\Product.class
+com\ecom\entities\Payment.class
+com\ecom\entities\Card.class
+com\ecom\entities\BaseEntity.class
+com\ecom\entities\User.class
+com\ecom\DemoApplication.class
+com\ecom\enums\OrderStatus.class
+com\ecom\entities\Category.class
+com\ecom\enums\CardType.class
+com\ecom\enums\PaymentMethod.class
+com\ecom\entities\Address.class
+com\ecom\enums\UserRole.class
+com\ecom\entities\Cart.class
+com\ecom\entities\Order.class
+com\ecom\entities\Item.class
+com\ecom\controller\TestController.class
