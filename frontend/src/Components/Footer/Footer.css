@@ -1,0 +1,15 @@
+.svg-icon-container{
+    display: flex;
+    justify-content: center;
+}
+
+.svg-icon { 
+    fill: var(--white); 
+}
+
+
+.svg-icon:hover {
+     fill: var(--orange); 
+     transition: fill 0.3s ease;
+     cursor: pointer; 
+    } 

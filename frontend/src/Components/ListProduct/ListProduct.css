@@ -1,0 +1,33 @@
+.list-product-container{
+    border: 1px solid var(--grey);
+    display: flex;
+    margin-top: 30px;
+    width: 80%;
+    border-radius: 10px;
+   
+}
+
+.productlist-container{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.list-product-container .product-image{
+  width:30%;
+  padding: 10px;
+  margin-right: 5%;
+
+  
+}
+.product-image img{
+    width: 100%;
+    object-fit: cover; /* Ensures uniform image display without distortion */
+}
+
+.product-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}

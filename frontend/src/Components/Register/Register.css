@@ -1,0 +1,28 @@
+.register-inner-container{
+    display: flex;
+    height:calc(100vh - 61px);
+    justify-content: center;
+    align-items: center;   
+    background-color: #f3fefe;
+}
+.register-row{
+    display: flex;
+    gap:5%;
+}
+.register-form{
+    box-shadow: 5px 5px #d1d1d1;
+    border-radius: 20px;
+    padding: 20px;
+    border:1px solid #d9d8d8;
+    width:65%;
+    background-color: white;
+}
+.register-btn{
+    text-align: center;
+}
+.register-btn button{
+    width: 30%;
+}
+.register-row .mb-3{
+    width:50%;
+}

@@ -1,0 +1,32 @@
+.bg-dark{
+    background-color: rgba(17,17,17,var(--bs-bg-opacity)) !important;
+}
+.logo:hover{
+    -webkit-text-stroke: 1px var(--white);
+    color: var(--black) !important;
+    transition: all .5s;
+    cursor: pointer;
+    
+}
+
+.search-container{
+    width:40%;
+}
+.links{
+    flex-grow: 0 !important;
+}
+a:hover{
+    color: var(--orange) !important;
+}
+
+@media only screen and (max-width: 500px) {
+    .search-container{
+        position: relative;
+        width: 100%;
+    }
+    .navbar-toggler{
+        position: absolute;
+    right: 10px;
+    top: 10px;
+    }
+}

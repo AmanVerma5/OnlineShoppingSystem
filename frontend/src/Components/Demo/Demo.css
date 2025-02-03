@@ -1,0 +1,44 @@
+.inner-login{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    box-shadow: 5px 5px #d1d1d1;
+    border-radius: 20px;
+    padding: 20px;
+    border:1px solid #d9d8d8;
+    background-color: white;
+}
+.inner-login div{
+    width: 100%;
+}
+.inner-login input{
+    width: 100%;
+}
+.outer-login{
+    display: flex;
+    height:calc(100vh - 61px);
+    justify-content: center;
+    align-items: center;
+    background-color:#f3fefe;
+}
+
+.registerhere-link{
+    text-align: center;
+}
+
+.inner-login h2{
+    width:100%;
+}
+
+@media only screen and (max-width: 500px){
+    .inner-login{
+        width:80%;
+    }
+}
+@media only screen and (max-width: 700px){
+    .inner-login{
+        width:60%;
+    }
+}

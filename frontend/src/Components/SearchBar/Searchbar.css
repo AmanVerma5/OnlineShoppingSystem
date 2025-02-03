@@ -1,0 +1,19 @@
+.searchbar{
+    display: flex;
+    background-color: var(--white);
+    border-radius: 22px;
+    padding:5px;
+    width:100%;
+    
+}
+.search-input{
+    width: 95%;
+}
+.search-input input{
+    border:none;
+    outline: none;
+    caret-color: var(--grey);
+    width:95%;
+}
+
+
