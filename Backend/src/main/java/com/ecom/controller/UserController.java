@@ -17,7 +17,6 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 
-	
 	/*
 	 * Desc - user sign up
 	 * URL - http://host:port/users/signup
