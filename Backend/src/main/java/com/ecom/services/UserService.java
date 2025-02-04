@@ -2,6 +2,8 @@ package com.ecom.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecom.dtos.ApiResponse;
 import com.ecom.dtos.user.AuthRequestDto;
@@ -12,6 +14,8 @@ import com.ecom.exceptions.ApiException;
 import com.ecom.exceptions.ResourceNotFoundException;
 import com.ecom.respositories.UserRepository;
 
+@Service
+@Transactional
 public class UserService implements IUserService {
 
 	@Autowired
@@ -27,7 +31,7 @@ public class UserService implements IUserService {
 			throw new ApiException("User with this email already exists");
 		}
 		User persistentUser = userRepository.save(modelMapper.map(registerUserDetails, User.class));
-
+		persistentUser.setActive(true);
 		return new ApiResponse("User Register Successfully");
 	}
 
