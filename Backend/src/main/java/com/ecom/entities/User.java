@@ -49,9 +49,6 @@ public class User extends BaseEntity {
 	private UserRole userRole;
 	
 	@ElementCollection
-	private List<Card> cards;
-	
-	@ElementCollection
 	private List<Address> addresses;
 	
 	@OneToOne

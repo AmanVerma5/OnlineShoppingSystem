@@ -9,6 +9,7 @@ import com.ecom.dtos.ApiResponse;
 import com.ecom.dtos.user.AuthRequestDto;
 import com.ecom.dtos.user.AuthResponseDto;
 import com.ecom.dtos.user.RegisterDto;
+import com.ecom.dtos.user.UpdateUserDto;
 import com.ecom.entities.User;
 import com.ecom.exceptions.ApiException;
 import com.ecom.exceptions.ResourceNotFoundException;
@@ -43,6 +44,18 @@ public class UserService implements IUserService {
 		} else {
 			throw new ResourceNotFoundException("Invalid Credentials");
 		}
+	}
+
+	@Override
+	public ApiResponse updateUser(UpdateUserDto updateUserDetails, String email) {
+
+		User updateUser = userRepository.getUserByEmail(email);
+		updateUser.setFirstName(updateUserDetails.getFirstName());
+		updateUser.setLastName(updateUserDetails.getLastName());
+		updateUser.setMobileNo(updateUserDetails.getMobileNo());
+		updateUser.setDateOfBirth(updateUserDetails.getDateOfBirth());
+
+		return new ApiResponse("Details Updated");
 	}
 
 }

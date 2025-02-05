@@ -12,6 +12,7 @@ com\ecom\enums\CardType.class
 com\ecom\enums\PaymentMethod.class
 com\ecom\enums\UserRole.class
 com\ecom\controller\TestController.class
+com\ecom\dtos\user\UpdateUserDto.class
 com\ecom\entities\Card.class
 com\ecom\dtos\user\AuthRequestDto.class
 com\ecom\entities\BaseEntity.class

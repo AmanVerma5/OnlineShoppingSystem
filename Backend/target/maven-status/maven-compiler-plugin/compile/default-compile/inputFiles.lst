@@ -5,6 +5,7 @@ D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\ApiResp
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\AuthRequestDto.java
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\AuthResponseDto.java
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\RegisterDto.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\UpdateUserDto.java
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Address.java
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\BaseEntity.java
 D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Card.java
