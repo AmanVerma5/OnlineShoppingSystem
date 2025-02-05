@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ecom.dtos.ApiResponse;
 import com.ecom.dtos.user.AuthRequestDto;
 import com.ecom.dtos.user.AuthResponseDto;
+import com.ecom.dtos.user.ChangeUserPasswordDto;
 import com.ecom.dtos.user.RegisterDto;
 import com.ecom.dtos.user.UpdateUserDto;
 import com.ecom.entities.User;
@@ -56,6 +57,20 @@ public class UserService implements IUserService {
 		updateUser.setDateOfBirth(updateUserDetails.getDateOfBirth());
 
 		return new ApiResponse("Details Updated");
+	}
+
+	@Override
+	public ApiResponse changePassword(ChangeUserPasswordDto changePasswordDto, String email) {
+
+		User persistentUser = userRepository.getUserByEmailAndPassword(email, changePasswordDto.getCurrentPassword());
+
+		if (persistentUser != null) {
+			persistentUser.setPassword(changePasswordDto.getNewPassword());
+			return new ApiResponse("Password updated successfully");
+		} else {
+			throw new ApiException("Invalid current password");
+		}
+
 	}
 
 }
