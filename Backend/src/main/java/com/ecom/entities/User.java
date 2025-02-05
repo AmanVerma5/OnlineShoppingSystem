@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.ecom.enums.UserRole;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -44,20 +44,20 @@ public class User extends BaseEntity {
 	private LocalDate dateOfBirth;
 
 	private boolean isActive;
-	
+
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
-	
-	@ElementCollection
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> addresses;
-	
+
 	@OneToOne
 	private Cart customerCart;
- 
+
 	@OneToMany(mappedBy = "vendor")
 	private List<Product> vendorProducts;
-	
+
 	@OneToMany(mappedBy = "customer")
 	private List<Order> customerOrders;
-	
+
 }

@@ -1,16 +1,20 @@
 package com.ecom.entities;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Embeddable
+@Entity
+@Table(name = "user_addresses")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Address {
+public class Address extends BaseEntity {
 
 	private String addressLine1;
 
@@ -24,5 +28,8 @@ public class Address {
 
 	@Pattern(regexp = "^\\d{4,6}$")
 	private String pincode;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
 
 }

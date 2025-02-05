@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Order extends BaseEntity {
-	
+
 	@ManyToOne
 	private User customer;
 
@@ -32,10 +33,13 @@ public class Order extends BaseEntity {
 	@ElementCollection
 	private List<Item> items;
 
+	@OneToOne
+	private Address deliveryAddress;
+
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
 
 	@Embedded
 	private Payment paymentDetails;
-	
+
 }
