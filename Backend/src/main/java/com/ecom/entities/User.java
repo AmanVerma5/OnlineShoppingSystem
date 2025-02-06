@@ -43,13 +43,10 @@ public class User extends BaseEntity {
 
 	private LocalDate dateOfBirth;
 
-	private boolean userStatus;
+	private boolean isActive;
 	
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
-	
-	@ElementCollection
-	private List<Card> cards;
 	
 	@ElementCollection
 	private List<Address> addresses;

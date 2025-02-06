@@ -13,16 +13,11 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-	// Configure Model Mapper
 	@Bean
 	public ModelMapper modelMapper() {
-		ModelMapper mapper=new ModelMapper();
-		mapper.getConfiguration()
-		//data xfer from src props -> dest props iff 
-		//->1.  names n data types match
-		.setMatchingStrategy(MatchingStrategies.STRICT)
-		// && 2, src property is not null 
-		.setPropertyCondition(Conditions.isNotNull());
+		ModelMapper mapper = new ModelMapper();
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
+				.setPropertyCondition(Conditions.isNotNull());
 		return mapper;
 	}
 

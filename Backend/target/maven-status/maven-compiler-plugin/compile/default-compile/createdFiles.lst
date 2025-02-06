@@ -1,5 +1,6 @@
 com\ecom\entities\Product.class
 com\ecom\entities\Payment.class
+<<<<<<< HEAD
 com\ecom\repository\ProductDao.class
 com\ecom\dtos\CategoryRespDto.class
 com\ecom\exceptions\ResourceNotFoundException.class
@@ -25,7 +26,30 @@ com\ecom\DemoApplication.class
 com\ecom\entities\Category.class
 com\ecom\services\ProductService.class
 com\ecom\dtos\ProductRespDto.class
+=======
+com\ecom\dtos\user\AuthResponseDto.class
+com\ecom\services\IUserService.class
+com\ecom\exceptions\ResourceNotFoundException.class
+com\ecom\entities\User.class
+com\ecom\enums\OrderStatus.class
+com\ecom\dtos\ApiResponse.class
+com\ecom\exceptions\ApiException.class
+com\ecom\dtos\user\RegisterDto.class
+com\ecom\enums\CardType.class
+com\ecom\enums\PaymentMethod.class
+com\ecom\enums\UserRole.class
+com\ecom\controller\TestController.class
+com\ecom\dtos\user\UpdateUserDto.class
+com\ecom\entities\Card.class
+com\ecom\dtos\user\AuthRequestDto.class
+com\ecom\entities\BaseEntity.class
+com\ecom\DemoApplication.class
+com\ecom\entities\Category.class
+com\ecom\respositories\UserRepository.class
+com\ecom\services\UserService.class
+>>>>>>> 276ddfb49d0b545980c4187b414cd516c690847e
 com\ecom\entities\Address.class
 com\ecom\entities\Cart.class
 com\ecom\entities\Order.class
+com\ecom\controller\UserController.class
 com\ecom\entities\Item.class

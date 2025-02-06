@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\controller\CategoryController.java
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\controller\ProductController.java
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\controller\TestController.java
@@ -29,3 +30,32 @@ C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\servic
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\services\CategoryServiceImpl.java
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\services\ProductService.java
 C:\DAC_Course\Project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\services\ProductServiceImpl.java
+=======
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\controller\TestController.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\controller\UserController.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\DemoApplication.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\ApiResponse.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\AuthRequestDto.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\AuthResponseDto.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\RegisterDto.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\dtos\user\UpdateUserDto.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Address.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\BaseEntity.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Card.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Cart.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Category.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Item.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Order.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Payment.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\Product.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\entities\User.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\enums\CardType.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\enums\OrderStatus.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\enums\PaymentMethod.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\enums\UserRole.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\exceptions\ApiException.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\exceptions\ResourceNotFoundException.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\respositories\UserRepository.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\services\IUserService.java
+D:\CDAC\project\OnlineShoppingSystem\Backend\src\main\java\com\ecom\services\UserService.java
+>>>>>>> 276ddfb49d0b545980c4187b414cd516c690847e

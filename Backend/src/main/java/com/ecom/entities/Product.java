@@ -19,23 +19,24 @@ public class Product extends BaseEntity {
 
 
 	private String name;
-	
 	private double price;
-	
+
 	private int quantityInStock;
+
 	
 	private String description;
 	
 	@Column(name = "prod_status")
 	private boolean isStatus;
-		
+
+	@Lob
+	private byte[] image;
+
 	@ManyToOne
 	@JoinColumn(name = "category_id",nullable = false)
 	private Category category;
 	
 	@ManyToOne
 	private User vendor;
-	@Lob
-    private byte[] image;
 
 }
