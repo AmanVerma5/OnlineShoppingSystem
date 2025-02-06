@@ -1,5 +1,6 @@
 package com.ecom.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -16,21 +17,24 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Product extends BaseEntity {
 
-	@ManyToOne
-	private User vendor;
 
 	private String name;
-	
-	private String description;
 	
 	private double price;
 	
 	private int quantityInStock;
 	
+	private String description;
+	
+	@Column(name = "prod_status")
+	private boolean isStatus;
+		
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id",nullable = false)
 	private Category category;
 	
+	@ManyToOne
+	private User vendor;
 	@Lob
     private byte[] image;
 
