@@ -5,7 +5,7 @@ import com.ecom.dtos.user.AuthRequestDto;
 import com.ecom.dtos.user.AuthResponseDto;
 import com.ecom.dtos.user.ChangeUserPasswordDto;
 import com.ecom.dtos.user.RegisterDto;
-import com.ecom.dtos.user.UpdateUserDto;
+import com.ecom.dtos.user.UserDetailsDto;
 
 public interface IUserService {
 
@@ -13,8 +13,10 @@ public interface IUserService {
 
 	AuthResponseDto signInUser(AuthRequestDto loginDto);
 
-	ApiResponse updateUser(UpdateUserDto updateUserDetails, String email);
+	ApiResponse updateUser(UserDetailsDto updateUserDetails, String email);
 
 	ApiResponse changePassword(ChangeUserPasswordDto changePasswordDto, String email);
+
+	UserDetailsDto getUserDetails(String email);
 
 }

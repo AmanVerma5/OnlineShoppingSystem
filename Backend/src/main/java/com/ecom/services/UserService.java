@@ -10,7 +10,7 @@ import com.ecom.dtos.user.AuthRequestDto;
 import com.ecom.dtos.user.AuthResponseDto;
 import com.ecom.dtos.user.ChangeUserPasswordDto;
 import com.ecom.dtos.user.RegisterDto;
-import com.ecom.dtos.user.UpdateUserDto;
+import com.ecom.dtos.user.UserDetailsDto;
 import com.ecom.entities.User;
 import com.ecom.exceptions.ApiException;
 import com.ecom.exceptions.ResourceNotFoundException;
@@ -46,9 +46,15 @@ public class UserService implements IUserService {
 			throw new ResourceNotFoundException("Invalid Credentials");
 		}
 	}
+	
 
 	@Override
-	public ApiResponse updateUser(UpdateUserDto updateUserDetails, String email) {
+	public UserDetailsDto getUserDetails(String email) {
+		return modelMapper.map(userRepository.getUserByEmail(email), UserDetailsDto.class);
+	}
+
+	@Override
+	public ApiResponse updateUser(UserDetailsDto updateUserDetails, String email) {
 
 		User updateUser = userRepository.getUserByEmail(email);
 		updateUser.setFirstName(updateUserDetails.getFirstName());
@@ -72,5 +78,6 @@ public class UserService implements IUserService {
 		}
 
 	}
+
 
 }

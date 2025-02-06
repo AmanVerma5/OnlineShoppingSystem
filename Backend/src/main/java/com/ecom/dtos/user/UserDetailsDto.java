@@ -11,14 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserDto {
+public class UserDetailsDto {
 
 	private String firstName;
 
 	private String lastName;
-
+	
 	private String mobileNo;
 
 	private LocalDate dateOfBirth;
-
+	
 }
