@@ -23,6 +23,9 @@
   align-items: center;
   background-color:#f3fefe;
 }
+.inner-login button{
+  width: 30%;
+}
 
 .registerhere-link{
   text-align: center;

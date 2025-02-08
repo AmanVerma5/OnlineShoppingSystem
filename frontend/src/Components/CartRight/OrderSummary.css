@@ -1,0 +1,14 @@
+.right-container{
+    border:1px solid black;
+    height:500px;
+    width: 30%;
+    color: var(--white);
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.order-summary{
+    text-align: center;
+}
