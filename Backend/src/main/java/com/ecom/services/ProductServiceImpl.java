@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.ProductReqDto;
-import com.ecom.dtos.ProductRespDto;
+import com.ecom.dtos.product.ProductReqDto;
+import com.ecom.dtos.product.ProductRespDto;
 import com.ecom.entities.Product;
 import com.ecom.exceptions.ResourceNotFoundException;
 import com.ecom.repository.ProductDao;

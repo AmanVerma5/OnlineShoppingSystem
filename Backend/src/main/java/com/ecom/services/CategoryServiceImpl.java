@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.CategoryProductsDto;
-import com.ecom.dtos.CategoryReqDto;
-import com.ecom.dtos.CategoryRespDto;
+import com.ecom.dtos.product.CategoryProductsDto;
+import com.ecom.dtos.product.CategoryReqDto;
+import com.ecom.dtos.product.CategoryRespDto;
 import com.ecom.entities.Category;
 import com.ecom.exceptions.ResourceNotFoundException;
 import com.ecom.repository.CategoryDao;

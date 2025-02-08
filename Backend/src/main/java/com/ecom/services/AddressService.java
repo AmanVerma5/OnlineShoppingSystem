@@ -76,4 +76,12 @@ public class AddressService implements IAddressService {
 		return new ApiResponse("Address updated");
 	}
 
+	@Override
+	public ApiResponse deleteUserAddress(Integer addressId) {
+		Address persistentAddress = addressRepository.findById(addressId)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Address Id"));
+		addressRepository.delete(persistentAddress);
+		return new ApiResponse("Address Deleted");
+	}
+
 }

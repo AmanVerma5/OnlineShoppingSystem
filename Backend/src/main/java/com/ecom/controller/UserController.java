@@ -5,6 +5,7 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -194,4 +195,13 @@ public class UserController {
 	// Payload - none
 	// Success resp - ResponseEntity with ApiResponse succ mesg
 	// err - ResponseEntity with err mesg
+	@DeleteMapping("/delete_address/{addressId}")
+	public ResponseEntity<?> deleteUserAddress(@PathVariable Integer addressId) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(addressService.deleteUserAddress(addressId));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+	
 }

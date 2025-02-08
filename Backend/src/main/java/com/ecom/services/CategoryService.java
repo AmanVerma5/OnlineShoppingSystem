@@ -3,9 +3,9 @@ package com.ecom.services;
 import java.util.List;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.CategoryProductsDto;
-import com.ecom.dtos.CategoryReqDto;
-import com.ecom.dtos.CategoryRespDto;
+import com.ecom.dtos.product.CategoryProductsDto;
+import com.ecom.dtos.product.CategoryReqDto;
+import com.ecom.dtos.product.CategoryRespDto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

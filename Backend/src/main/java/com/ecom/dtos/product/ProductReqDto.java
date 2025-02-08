@@ -1,4 +1,4 @@
-package com.ecom.dtos;
+package com.ecom.dtos.product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

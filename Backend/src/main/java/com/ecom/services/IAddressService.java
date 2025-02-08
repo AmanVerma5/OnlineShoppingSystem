@@ -16,4 +16,6 @@ public interface IAddressService {
 
 	ApiResponse updateUserAddress(AddressResponseDto updatedAddressDto);
 
+	ApiResponse deleteUserAddress(Integer addressId);
+
 }

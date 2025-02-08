@@ -1,6 +1,8 @@
-package com.ecom.dtos;
+package com.ecom.dtos.product;
 
 import java.util.List;
+
+import com.ecom.dtos.BaseDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

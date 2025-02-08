@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.ProductReqDto;
-import com.ecom.dtos.ProductRespDto;
+import com.ecom.dtos.product.ProductReqDto;
+import com.ecom.dtos.product.ProductRespDto;
 
 public interface ProductService {
 

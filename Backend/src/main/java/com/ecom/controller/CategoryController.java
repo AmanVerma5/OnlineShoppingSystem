@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.CategoryReqDto;
-import com.ecom.dtos.CategoryRespDto;
+import com.ecom.dtos.product.CategoryReqDto;
+import com.ecom.dtos.product.CategoryRespDto;
 import com.ecom.services.CategoryService;
 
 import jakarta.validation.constraints.Max;
