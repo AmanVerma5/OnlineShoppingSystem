@@ -2,61 +2,65 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { register } from "../../Services/UserServices";
 
 const Register = () => {
 
-  const [firstName,setFirstName]=useState("");
-  const [lastName,setLastName]=useState("");
-  const [email,setEmail]=useState("");
-  const [dob,setDob]=useState("");
-  const [password,setPassword]=useState("");
-  const [confirmPassword,setConfirmPassword]=useState("");
-  const navigate=useNavigate()
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate()
 
 
-  function validateUser(){
-    if(firstName==="" || lastName===""){
+  function validateUser() {
+    if (firstName === "" || lastName === "") {
       toast.error("Name cannot be empty")
-    }else if(email===""){
+    } else if (email === "") {
       toast.error("Email cannot be empty")
-    }else if(dob===""){
+    } else if (dob === "") {
       toast.error("Date of birth cannot be empty")
-    }else if(password==="" || confirmPassword===""){
+    } else if (password === "" || confirmPassword === "") {
       toast.error("Password cannot be empty")
-    }else if(password!==confirmPassword){
+    } else if (password !== confirmPassword) {
       toast.error("Passwords do not match")
-    }else{
+    } else {
       registerUser()
     }
   }
 
   function registerUser() {
-    let user = {  
-        name: `${firstName} ${lastName}`,
-        email,
-        dob,
-        password
+    let user = {
+      name: `${firstName} ${lastName}`,
+      email,
+      dob,
+      password
     };
 
-    let users = localStorage.getItem("users");
+    register(user);
 
-    if (users === null) {
-      
-        localStorage.setItem("users", JSON.stringify([user]));
-    } else {
-        users = JSON.parse(users);
+    // let users = localStorage.getItem("users");
 
-        let userExists = users.some(u => u.email === email);
-        if (userExists) {
-            alert("User already exists! Please log in.");
-            return;
-        }
-        users.push(user);
-        localStorage.setItem("users", JSON.stringify(users));
-    }
+    // if (users === null) {
 
-    navigate("/login");
-}
+    //   localStorage.setItem("users", JSON.stringify([user]));
+    // } else {
+    //   users = JSON.parse(users);
+
+    //   let userExists = users.some(u => u.email === email);
+    //   if (userExists) {
+    //     alert("User already exists! Please log in.");
+    //     return;
+    //   }
+    //   users.push(user);
+    //   localStorage.setItem("users", JSON.stringify(users));
+    // }
+
+
+    // navigate("/login");
+  }
 
 
 
@@ -68,31 +72,31 @@ const Register = () => {
           <div className="register-row">
             <div class="mb-3">
               <label class="form-label">First Name</label>
-              <input type="text" class="form-control" placeholder="First Name" onChange={(e)=>setFirstName(e.target.value)} />
+              <input type="text" class="form-control" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
             </div>
             <div class="mb-3">
               <label class="form-label">Last Name</label>
-              <input type="text" class="form-control" placeholder="Last Name" onChange={(e)=>setLastName(e.target.value)} />
+              <input type="text" class="form-control" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
             </div>
           </div>
           <div className="register-row">
             <div class="mb-3">
               <label class="form-label">Email</label>
-              <input type="email" class="form-control" placeholder="Email" onChange={e=>setEmail(e.target.value)} />
+              <input type="email" class="form-control" placeholder="Email" onChange={e => setEmail(e.target.value)} />
             </div>
             <div class="mb-3">
               <label class="form-label">Date of birth</label>
-              <input type="date" class="form-control" onChange={e=>setDob(e.target.value)} />
+              <input type="date" class="form-control" onChange={e => setDob(e.target.value)} />
             </div>
           </div>
           <div className="register-row">
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <input type="password" class="form-control" placeholder="Password" onChange={e=>setPassword(e.target.value)} />
+              <input type="password" class="form-control" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             </div>
             <div class="mb-3">
               <label class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" placeholder="Confirm Password" onChange={e=>setConfirmPassword(e.target.value)} />
+              <input type="password" class="form-control" placeholder="Confirm Password" onChange={e => setConfirmPassword(e.target.value)} />
             </div>
           </div>
           <div>

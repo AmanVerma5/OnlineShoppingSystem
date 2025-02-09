@@ -5,6 +5,10 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecom.dtos.AuthResponse;
 import com.ecom.dtos.address.AddressResponseDto;
 import com.ecom.dtos.address.UserAddressDto;
 import com.ecom.dtos.user.AuthRequestDto;
@@ -22,11 +27,13 @@ import com.ecom.dtos.user.ChangeUserPasswordDto;
 import com.ecom.dtos.user.RegisterDto;
 import com.ecom.dtos.user.UserDetailsDto;
 import com.ecom.exceptions.ResourceNotFoundException;
+import com.ecom.security.JwtUtils;
 import com.ecom.services.IAddressService;
 import com.ecom.services.IUserService;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
 	@Autowired
@@ -34,6 +41,12 @@ public class UserController {
 
 	@Autowired
 	private IAddressService addressService;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	// Desc - user sign up
 	// URL - http://host:port/users/signup
@@ -59,12 +72,20 @@ public class UserController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> signinUser(@RequestBody AuthRequestDto loginDto) {
 
-		try {
-			return ResponseEntity.ok(userService.signInUser(loginDto));
-		} catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-		}
+//		try {
+//			return ResponseEntity.ok(userService.signInUser(loginDto));
+//		} catch (RuntimeException e) {
+//			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+//		}
 
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDto.getEmail(),
+				loginDto.getPassword());
+
+		Authentication authToken = authenticationManager.authenticate(token);
+
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new AuthResponse("Logged in", jwtUtils.generateJwtToken(authToken)));
+		
 	}
 
 	// Desc -get user details
@@ -203,5 +224,5 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-	
+
 }
