@@ -33,7 +33,7 @@ import com.ecom.services.IUserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired

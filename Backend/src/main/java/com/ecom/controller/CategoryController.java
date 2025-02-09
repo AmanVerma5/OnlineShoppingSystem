@@ -24,7 +24,7 @@ import jakarta.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 public class CategoryController {
 	
 	@Autowired
