@@ -31,15 +31,23 @@ const Register = () => {
     }
   }
 
-  function registerUser() {
+  async function registerUser() {
     let user = {
-      name: `${firstName} ${lastName}`,
+      firstName,
+      lastName,
       email,
-      dob,
-      password
+      "dateOfBirth":dob,
+      password,
+      "userRole":"CUSTOMER"
     };
 
-    register(user);
+    const response = await register(user);
+    if (response.status == 201) {
+      toast.success(response.data.message);
+      navigate("/login");
+    } else {
+      toast.error(response.error.response.data);
+    }
 
     // let users = localStorage.getItem("users");
 
@@ -59,7 +67,6 @@ const Register = () => {
     // }
 
 
-    // navigate("/login");
   }
 
 

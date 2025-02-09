@@ -12,6 +12,7 @@ import lombok.Setter;
 public class AuthResponse {
 
 	private String message;
+	private String name;
 	private String jwt;
 
 }

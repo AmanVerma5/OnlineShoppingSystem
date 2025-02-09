@@ -15,7 +15,7 @@ const Navbar=({flag})=>{
   useEffect(()=>{
     setShow(flag)
     let u=localStorage.getItem("user");
-    if(u!==null && u.length!==0){
+    if(u!==null){
       u=JSON.parse(u);
       setUser(u);
     }
@@ -45,7 +45,7 @@ const Navbar=({flag})=>{
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           {user ? <li class="nav-item">
-            <Link class="nav-link active"  aria-current="page" to="/login">{user[0].name}</Link>
+            <Link class="nav-link active"  aria-current="page" to="/login">{user.name}</Link>
           </li>:<li><Link class="nav-link active"  aria-current="page" to="/login">Login</Link></li>}
           <li class="nav-item">
             <Link class="nav-link" to="/cart">   

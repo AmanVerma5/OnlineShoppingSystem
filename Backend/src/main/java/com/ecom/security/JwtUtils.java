@@ -40,7 +40,9 @@ public class JwtUtils {
 		return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpiration))
 				.claim("authorities", getAuthoritiesInString(userPrincipal.getAuthorities()))
-				.claim("user_id", userPrincipal.getUser().getId()).signWith(key, SignatureAlgorithm.HS512).compact();
+				.claim("user_id", userPrincipal.getUser().getId())
+				.claim("name", userPrincipal.getUser().getFirstName())
+				.signWith(key, SignatureAlgorithm.HS512).compact();
 	}
 
 	public String getAuthoritiesInString(Collection<? extends GrantedAuthority> authorities) {

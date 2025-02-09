@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +26,7 @@ import com.ecom.dtos.user.ChangeUserPasswordDto;
 import com.ecom.dtos.user.RegisterDto;
 import com.ecom.dtos.user.UserDetailsDto;
 import com.ecom.exceptions.ResourceNotFoundException;
+import com.ecom.security.CustomUserDetailsImpl;
 import com.ecom.security.JwtUtils;
 import com.ecom.services.IAddressService;
 import com.ecom.services.IUserService;
@@ -77,14 +77,19 @@ public class UserController {
 //			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 //		}
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDto.getEmail(),
-				loginDto.getPassword());
+		try {
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDto.getEmail(),
+					loginDto.getPassword());
 
-		Authentication authToken = authenticationManager.authenticate(token);
+			Authentication authToken = authenticationManager.authenticate(token);
+			CustomUserDetailsImpl user = (CustomUserDetailsImpl) authToken.getPrincipal();
+			return ResponseEntity.status(HttpStatus.OK).body(
+					new AuthResponse("Successfully Logged in", user.getUser().getFirstName(), jwtUtils.generateJwtToken(authToken)));
+		} catch (RuntimeException e) {
+			System.out.println(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Credentials");
+		}
 
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new AuthResponse("Logged in", jwtUtils.generateJwtToken(authToken)));
-		
 	}
 
 	// Desc -get user details
