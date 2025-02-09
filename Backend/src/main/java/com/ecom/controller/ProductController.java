@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,13 +31,13 @@ public class ProductController {
 	private ProductService prodService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> addProduct(@RequestPart ProductReqDto newProduct, @RequestPart MultipartFile image)
+	public ResponseEntity<?> addProduct(@RequestBody ProductReqDto newProduct)
 	{			
 		try
 		{
 			
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(prodService.addProduct(newProduct,image));
+					.body(prodService.addProduct(newProduct));
 		}
 		catch(Exception e)
 		{
@@ -61,18 +62,18 @@ public class ProductController {
 		}
 	}
 	
-//	@PutMapping("/purchase/{id}/{qty}")
-//	public ResponseEntity<?> purchaseProduct(@PathVariable Integer id, @PathVariable int qty)
-//	{
-//		return ResponseEntity.ok(prodService.purchaseProduct(id,qty));
-//		
-//	}
-//	
-//	@DeleteMapping("/delete/{id}")
-//	public ResponseEntity<?> deleteProduct(@PathVariable Integer id)
-//	{
-//		return ResponseEntity.ok(prodService.deleteProduct(id));
-//	}
+	@PutMapping("/purchase/{id}/{qty}")
+	public ResponseEntity<?> purchaseProduct(@PathVariable Integer id, @PathVariable int qty)
+	{
+		return ResponseEntity.ok(prodService.purchaseProduct(id,qty));
+		
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable Integer id)
+	{
+		return ResponseEntity.ok(prodService.deleteProduct(id));
+	}
 //	
 //	@GetMapping("/view/{catId}")
 //	public ResponseEntity<?> getCategoryAndProducts(@PathVariable Integer id)
@@ -87,6 +88,20 @@ public class ProductController {
 //		}
 //	}
 	
-	
+	 @PostMapping("image")
+	    public String createAd(
+	        @RequestParam("files") MultipartFile[] adsImages,
+	        @RequestParam("price") Double price
+	        // Add other parameters
+	    ) {
+	       
+	        for (MultipartFile imageFile : adsImages) {
+	            System.out.println("Image recieved " + imageFile.getName());
+	        }
+	        System.out.println("price " + price);
+	        // Save the adsImagesString in your database
+	        // You can also associate it with other data in your Ads object
+	        return "Success";
+	    }
 
 }

@@ -27,11 +27,20 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 
+//	@Override
+//	public ApiResponse addProduct(ProductReqDto product,MultipartFile image) throws IOException {
+//		Product newProduct = modelMapper.map(product, Product.class);
+//		newProduct.setStatus(true);
+//		newProduct.setImage(image.getBytes());
+//		productDao.save(newProduct);
+//		return new ApiResponse("Added new product with ID " + newProduct.getId());
+//		
+//	}
+	
 	@Override
-	public ApiResponse addProduct(ProductReqDto product,MultipartFile image) throws IOException {
+	public ApiResponse addProduct(ProductReqDto product) {
 		Product newProduct = modelMapper.map(product, Product.class);
 		newProduct.setStatus(true);
-		newProduct.setImage(image.getBytes());
 		productDao.save(newProduct);
 		return new ApiResponse("Added new product with ID " + newProduct.getId());
 		
@@ -46,24 +55,25 @@ public class ProductServiceImpl implements ProductService {
 				.collect(Collectors.toList());
 	}
 
-//	@Override
-//	public ApiResponse purchaseProduct(Integer id, int qty) {
-//		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
-//		product.setQuantityInStock(product.getQuantityInStock() - qty);
-//		return new ApiResponse("Purchased Product");
-//	}
-//
-//	@Override
-//	public ApiResponse deleteProduct(Integer id) {
-//		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
-//		
-//		if(product.isStatus())
-//		{
-//			product.setStatus(false);
-//		}
-//		return new ApiResponse("Product deleted successfully");
-//	}
-//
+	@Override
+	public ApiResponse purchaseProduct(Integer id, int qty) {
+		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
+		product.setQuantityInStock(product.getQuantityInStock() - qty);
+		return new ApiResponse("Purchased Product");
+	}
+
+	@Override
+	public ApiResponse deleteProduct(Integer id) {
+		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
+		
+		if(product.isStatus())
+		{
+			product.setStatus(false);
+		}
+		return new ApiResponse("Product deleted successfully");
+	}
+
+
 //	@Override
 //	public ProductRespDto getCategoryAndProducts(Integer id) {
 //		// INCOMPLETE
