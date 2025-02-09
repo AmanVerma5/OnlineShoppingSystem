@@ -11,15 +11,17 @@ import com.ecom.dtos.product.ProductRespDto;
 
 public interface ProductService {
 
-	ApiResponse addProduct(ProductReqDto newProduct,MultipartFile image) throws IOException;
+
+	ApiResponse addProduct(MultipartFile[] adsImages, String name, Double price, int quantityInStock, String description) throws IOException;
+
 
 	List<ProductRespDto> getAllProducts();
 
-//	ApiResponse purchaseProduct(Integer id, int qty);
-//
-//	ApiResponse deleteProduct(Integer id);
-//
-//	ProductRespDto getCategoryAndProducts(Integer id);
+	ApiResponse purchaseProduct(Integer id, int qty);
+	
+	ApiResponse deleteProduct(Integer id);
+
+	//	ProductRespDto getCategoryAndProducts(Integer id);
 	
 	
 	
