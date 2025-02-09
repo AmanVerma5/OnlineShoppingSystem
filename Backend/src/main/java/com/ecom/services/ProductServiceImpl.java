@@ -27,15 +27,14 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 
-	@Override
-	public ApiResponse addProduct(ProductReqDto product,MultipartFile image) throws IOException {
-		Product newProduct = modelMapper.map(product, Product.class);
-		newProduct.setStatus(true);
-		newProduct.setImage(image.getBytes());
-		productDao.save(newProduct);
-		return new ApiResponse("Added new product with ID " + newProduct.getId());
-		
-	}
+//	@Override
+//	public ApiResponse addProduct(ProductReqDto product,MultipartFile image) throws IOException {
+//		Product newProduct = modelMapper.map(product, Product.class);
+//		newProduct.setStatus(true);
+//		newProduct.setImage(image.getBytes());
+//		productDao.save(newProduct);
+//		return new ApiResponse("Added new product with ID " + newProduct.getId());	
+//	}
 
 	@Override
 	public List<ProductRespDto> getAllProducts() {
@@ -46,24 +45,44 @@ public class ProductServiceImpl implements ProductService {
 				.collect(Collectors.toList());
 	}
 
-//	@Override
-//	public ApiResponse purchaseProduct(Integer id, int qty) {
-//		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
-//		product.setQuantityInStock(product.getQuantityInStock() - qty);
-//		return new ApiResponse("Purchased Product");
-//	}
-//
-//	@Override
-//	public ApiResponse deleteProduct(Integer id) {
-//		Product product = productDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
-//		
-//		if(product.isStatus())
-//		{
-//			product.setStatus(false);
-//		}
-//		return new ApiResponse("Product deleted successfully");
-//	}
-//
+	@Override
+	public ApiResponse addProduct(MultipartFile[] adsImages, String name, Double price, int quantityInStock,
+			String description) throws IOException {
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
+		product.setQuantityInStock(quantityInStock);
+		product.setDescription(description);
+		byte[] arr = null;
+		for(MultipartFile image : adsImages)
+		{
+			arr = image.getBytes();
+		}
+		product.setImage(arr);
+		product.setStatus(true);
+		productDao.save(product);
+		return new ApiResponse("Product added with id - " + product.getId());
+	}
+
+	@Override
+	public ApiResponse purchaseProduct(Integer id, int qty) {
+		Product product = productDao.fetchProduct(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
+		product.setQuantityInStock(product.getQuantityInStock() - qty);
+		return new ApiResponse("Purchased Product");
+	}
+
+	@Override
+	public ApiResponse deleteProduct(Integer id) {
+		Product product = productDao.fetchProduct(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Product Id"));
+		if(product.isStatus())
+		{
+			product.setStatus(false);
+		}
+		
+		return new ApiResponse("Product deleted Successfully");
+	}
+	
+
 //	@Override
 //	public ProductRespDto getCategoryAndProducts(Integer id) {
 //		// INCOMPLETE
