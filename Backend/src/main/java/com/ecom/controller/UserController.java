@@ -33,7 +33,6 @@ import com.ecom.services.IUserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
