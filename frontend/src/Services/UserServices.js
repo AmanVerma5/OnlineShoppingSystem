@@ -7,7 +7,9 @@ function createUrl(url) {
 
 export async function register(user) {
     try {
-        const url = createUrl("/users/signup");
+        console.log(user)
+        const url = createUrl("users/signup");
+        console.log(url)
         const response = await axios.post(url, user);
         console.log(response.data);
         return response.data;
