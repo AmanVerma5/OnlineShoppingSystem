@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.dtos.AuthResponse;
@@ -83,8 +85,8 @@ public class UserController {
 
 			Authentication authToken = authenticationManager.authenticate(token);
 			CustomUserDetailsImpl user = (CustomUserDetailsImpl) authToken.getPrincipal();
-			return ResponseEntity.status(HttpStatus.OK).body(
-					new AuthResponse("Successfully Logged in", user.getUser().getFirstName(), jwtUtils.generateJwtToken(authToken)));
+			return ResponseEntity.status(HttpStatus.OK).body(new AuthResponse("Successfully Logged in",
+					user.getUser().getFirstName(), jwtUtils.generateJwtToken(authToken)));
 		} catch (RuntimeException e) {
 			System.out.println(e);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Credentials");
@@ -100,10 +102,10 @@ public class UserController {
 	// Payload - none
 	// Success resp - ResponseEntity with UserDetailsDto
 	// err - ResponseEntity with err mesg
-	@GetMapping("/user_details/{email}")
-	public ResponseEntity<?> getUserDetails(@PathVariable String email) {
+	@GetMapping("/user_details")
+	public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal UserDetails user) {
 		try {
-			return ResponseEntity.ok(userService.getUserDetails(email));
+			return ResponseEntity.ok(userService.getUserDetails(user.getUsername()));
 		} catch (RuntimeException e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -116,10 +118,12 @@ public class UserController {
 	// Success resp - ResponseEntity with success message
 	// err - ResponseEntity with err mesg
 	@PutMapping("/update")
-	public ResponseEntity<?> updateUser(@RequestBody UserDetailsDto updateUserDetails, String email) {
+	public ResponseEntity<?> updateUser(@RequestBody UserDetailsDto updateUserDetails) {
 
 		try {
-			return ResponseEntity.ok(userService.updateUser(updateUserDetails, email));
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			UserDetails user = (UserDetails) authentication.getPrincipal();
+			return ResponseEntity.ok(userService.updateUser(updateUserDetails, user.getUsername()));
 		} catch (RuntimeErrorException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -133,10 +137,11 @@ public class UserController {
 	// Success resp - ResponseEntity with success message
 	// err - ResponseEntity with err mesg
 	@PutMapping("/change_password")
-	public ResponseEntity<?> changePassword(@RequestBody ChangeUserPasswordDto changePasswordDto, String email) {
+	public ResponseEntity<?> changePassword(@RequestBody ChangeUserPasswordDto changePasswordDto,
+			@AuthenticationPrincipal UserDetails user) {
 
 		try {
-			return ResponseEntity.ok(userService.changePassword(changePasswordDto, email));
+			return ResponseEntity.ok(userService.changePassword(changePasswordDto, user.getUsername()));
 		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -151,9 +156,11 @@ public class UserController {
 	// Success resp - ResponseEntity with success message
 	// err - ResponseEntity with err mesg
 	@PostMapping("/add_address")
-	public ResponseEntity<?> addUserAddress(@RequestParam String email, @RequestBody UserAddressDto addressDto) {
+	public ResponseEntity<?> addUserAddress(@RequestBody UserAddressDto addressDto,
+			@AuthenticationPrincipal UserDetails user) {
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(addressService.addUserAddress(email, addressDto));
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body(addressService.addUserAddress(user.getUsername(), addressDto));
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -163,14 +170,16 @@ public class UserController {
 	// URL - http://host:port/users/addresses/{email}
 	// Method - GET
 	// Header -
-	// URL Query Parameter - email
+	// URL Query Parameter - 
 	// Payload - none
 	// Success resp - ResponseEntity with List of Address
 	// err - ResponseEntity with err mesg
-	@GetMapping("/addresses/{email}")
-	public ResponseEntity<?> getUserAddresses(@PathVariable String email) {
+	@GetMapping("/addresses")
+	public ResponseEntity<?> getUserAddresses() {
 		try {
-			return ResponseEntity.ok(addressService.geUserAddresses(email));
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			UserDetails user = (UserDetails) authentication.getPrincipal();
+			return ResponseEntity.ok(addressService.geUserAddresses(user.getUsername()));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
 		} catch (RuntimeException e) {

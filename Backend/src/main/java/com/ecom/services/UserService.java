@@ -30,8 +30,6 @@ public class UserService implements IUserService {
 	@Override
 	public ApiResponse registerUser(RegisterDto registerUserDetails) throws ApiException {
 
-		
-		
 		if (userRepository.existsByEmail(registerUserDetails.getEmail())) {
 			throw new ApiException("User with this email already exists");
 		}
