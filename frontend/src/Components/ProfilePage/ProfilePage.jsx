@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Profile from '../Profile/Profile';
 import Password from '../Password/Password';
+import Address from '../Address/Address';
 import './ProfilePage.css';
 
 
 const Orders = () => <div><h2>Your Orders</h2></div>;
-const Addresses = () => <div><h2>Your Addresses</h2></div>;
+
 
 
 
@@ -19,7 +20,7 @@ const ProfilePage=()=>{
             case "orders":
                 return <Orders />;
             case "addresses":
-                return <Addresses />;
+                return <Address />;
             case "password":
                 return <Password />;
             default:
