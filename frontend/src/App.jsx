@@ -8,6 +8,7 @@ import ProductListPage from "./Pages/ProductListPage";
 import DemoPage from "./Pages/DemoPage";
 import CartPage from "./Pages/CartPage";
 import { ToastContainer } from "react-toastify";
+import UserProfile from "./Pages/UserProfile";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
       <Route path="products" element={<ProductListPage/>}/>
       <Route path="demo" element={<DemoPage/>}/>
       <Route path="cart" element={<CartPage/>}/>
+      <Route path="profile" element={<UserProfile/>}/>
     </Routes>
     <ToastContainer/>
     </>

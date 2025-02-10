@@ -1,0 +1,39 @@
+.profile-page{
+    height: calc(100vh - 56px);
+}
+.inner-container{
+    height: inherit;
+}
+
+.profile-left {
+    position: relative;
+    padding:0px;
+    padding-right: 4px;
+    background: white;
+}
+.menu-item:hover{
+    background-color: rgba(200, 200, 200, 0.5);
+    cursor: pointer;
+    border-radius: 8px;
+    scale: 1.1;
+}
+.change-btn button{
+    width: 20%;
+}
+
+.profile-left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width:4px;
+    height: 100%;
+    /* background: linear-gradient(180deg, #e0e0e0, #b0b0b0, #e0e0e0); */
+    /* background: linear-gradient(180deg, #d9e4f5, #b2c7e0, #d9e4f5); */
+    /* background: linear-gradient(180deg, #f7f3e9, #e2c799, #f7f3e9); */
+    background: linear-gradient(180deg, rgba(241, 240, 240, 0.7), rgba(200, 200, 200, 0.5), rgba(241, 240, 240, 0.7));
+}
+
+
+
+
