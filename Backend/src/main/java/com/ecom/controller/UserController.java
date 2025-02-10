@@ -156,11 +156,11 @@ public class UserController {
 	// Success resp - ResponseEntity with success message
 	// err - ResponseEntity with err mesg
 	@PostMapping("/add_address")
-	public ResponseEntity<?> addUserAddress(@RequestBody UserAddressDto addressDto,
-			@AuthenticationPrincipal UserDetails user) {
+	public ResponseEntity<?> addUserAddress(@RequestBody UserAddressDto addressDto) {
 		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(addressService.addUserAddress(user.getUsername(), addressDto));
+					.body(addressService.addUserAddress(authentication.getName(), addressDto));
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
