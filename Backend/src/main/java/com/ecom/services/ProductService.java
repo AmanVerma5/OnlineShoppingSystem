@@ -6,13 +6,12 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.dtos.ApiResponse;
-import com.ecom.dtos.product.ProductReqDto;
 import com.ecom.dtos.product.ProductRespDto;
 
 public interface ProductService {
 
 
-	ApiResponse addProduct(MultipartFile[] adsImages, String name, Double price, int quantityInStock, String description) throws IOException;
+	ApiResponse addProduct(MultipartFile[] adsImages, String name, Double price, int quantityInStock, String description, Integer categoryId, String email) throws IOException;
 
 
 	List<ProductRespDto> getAllProducts();

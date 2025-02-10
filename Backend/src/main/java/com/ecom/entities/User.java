@@ -60,4 +60,13 @@ public class User extends BaseEntity {
 	@OneToMany(mappedBy = "customer")
 	private List<Order> customerOrders;
 
+	public void addProducts(Product product) {
+		this.vendorProducts.add(product);
+		product.setVendor(this);
+	}
+
+	public void removeProduct(Product product) {
+		this.vendorProducts.remove(product);
+		product.setVendor(null);
+	}
 }
