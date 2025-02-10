@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { register } from "../../Services/UserServices";
 
-const Register = () => {
+const Register = ({role}) => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -38,7 +38,7 @@ const Register = () => {
       email,
       "dateOfBirth":dob,
       password,
-      "userRole":"CUSTOMER"
+      "userRole":`${role}`
     };
 
     const response = await register(user);
@@ -46,6 +46,7 @@ const Register = () => {
       toast.success(response.data.message);
       navigate("/login");
     } else {
+      console.log(response);
       toast.error(response.error.response.data);
     }
 

@@ -31,7 +31,10 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(req -> req
 						.requestMatchers("/users/signin", "/users/signup", "/swagger-ui/index.html").permitAll()
 						.requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers("/users/**")
-						.hasAnyAuthority("ADMIN", "CUSTOMER", "VENDOR").anyRequest().authenticated())
+						.hasAnyAuthority("ADMIN", "CUSTOMER", "VENDOR")
+						.requestMatchers("/categories/**").permitAll()
+						.requestMatchers("/products/**").permitAll()
+						.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.addFilterBefore(customJWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		http.authenticationProvider(daoAuthenticationProvider());

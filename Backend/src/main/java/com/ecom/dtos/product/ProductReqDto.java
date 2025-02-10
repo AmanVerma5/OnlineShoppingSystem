@@ -14,8 +14,9 @@ public class ProductReqDto {
 	private String name;
 	private double price;
 	private int quantityInStock;
-	private String description;
+	private int categoryId;
 	private byte[] image;
+	private String description;
 	
 	public ProductReqDto(String name, double price, int quantityInStock, String description) {
 		this.name = name;

@@ -10,11 +10,13 @@ const Profile = () => {
     const [mobile, setMobile] = useState("");
     const [dob, setDob] = useState("");
 
-    const token = JSON.parse(localStorage.getItem("user")).jwt;
-
+    const user = localStorage.getItem("user");
+    if (user != null) {
+        var token = JSON.parse(user).jwt;
+    }
     useEffect(() => {
         axios.get("http://localhost:8080/users/user_details", {
-            headers: { Authorization: `Bearer ${token}`}
+            headers: { Authorization: `Bearer ${token}` }
         }) //Replace Here
             .then((response) => {
                 const data = response.data;
@@ -27,12 +29,12 @@ const Profile = () => {
             .catch((error) => console.error("Error fetching profile data:", error));
     }, []);
 
-  
+
     const handleSave = () => {
-        const updatedProfile = { firstName, lastName, email, "mobileNo":mobile, "dateOfBirth":dob };
+        const updatedProfile = { firstName, lastName, email, "mobileNo": mobile, "dateOfBirth": dob };
 
         axios.put("http://localhost:8080/users/update", updatedProfile, {
-            headers: {Authorization : `Bearer ${token}`}
+            headers: { Authorization: `Bearer ${token}` }
         }) // Replace Here
             .then(() => {
                 toast.success("Profile Updated Successfully");
@@ -98,15 +100,15 @@ const Profile = () => {
                 />
             </div>
             <div className="mb-3 text-center change-btn">
-            {isEditable ? (
-                <button className="btn btn-success" onClick={handleSave}>
-                    Save Changes
-                </button>
-            ) : (
-                <button className="btn btn-primary" onClick={() => setIsEditable(true)}>
-                    Edit
-                </button>
-            )}
+                {isEditable ? (
+                    <button className="btn btn-success" onClick={handleSave}>
+                        Save Changes
+                    </button>
+                ) : (
+                    <button className="btn btn-primary" onClick={() => setIsEditable(true)}>
+                        Edit
+                    </button>
+                )}
             </div>
         </div>
     );

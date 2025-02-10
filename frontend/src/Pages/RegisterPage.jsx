@@ -3,11 +3,11 @@ import Register from "../Components/Register/Register"
 
 
 
-const RegisterPage=()=>{
+const RegisterPage=({role})=>{
     return(
         <div className="register-page">
         <Navbar flag={false}/>
-        <Register/>
+        <Register role={`${role}`}/>
         </div>
     )
 }

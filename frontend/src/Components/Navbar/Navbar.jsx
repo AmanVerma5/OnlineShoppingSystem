@@ -7,73 +7,75 @@ import { useEffect, useState } from 'react';
 
 
 
-const Navbar=({flag})=>{
+const Navbar = ({ flag }) => {
 
-  const [show,setShow]=useState('true')
-  const [user,setUser]=useState();
+  const [show, setShow] = useState('true')
+  const [user, setUser] = useState();
 
-  useEffect(()=>{
+  useEffect(() => {
     setShow(flag)
-    let u=localStorage.getItem("user");
-    if(u!==null){
-      u=JSON.parse(u);
+    let u = localStorage.getItem("user");
+    if (u !== null) {
+      u = JSON.parse(u);
       setUser(u);
     }
-  },[flag])
-  
-  
-   return(
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" aria-label="Offcanvas navbar large">
-    <div class="container-fluid">
-      <Link class="navbar-brand logo" to="/">
-      QUICKSHOPR <span><img src={logo} style={{position:'relative',top:'-2px',height:"20px", width:"20px"}} alt=""/></span>
-      </Link>
-      {
-        show && (
-          <> <div class="d-flex mt-3 mt-lg-0 search-container" role="search">
-          <Searchbar/>
+  }, [flag])
+
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" aria-label="Offcanvas navbar large">
+      <div className="container-fluid">
+        <Link className="navbar-brand logo" to="/">
+          QUICKSHOPR <span><img src={logo} style={{ position: 'relative', top: '-2px', height: "20px", width: "20px" }} alt="" /></span>
+        </Link>
+        {
+          show && (
+            <> <div className="d-flex mt-3 mt-lg-0 search-container" role="search">
+              <Searchbar />
+            </div>
+              <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+
+              <div className="offcanvas offcanvas-end text-bg-dark links" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+                <div className="offcanvas-header">
+                  <h5 className="offcanvas-title logo" id="offcanvasNavbar2Label">QUICKSHOPR</h5>
+                  <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+                  <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    {user ? <li className="nav-item">
+                      <Link className="nav-link active" aria-current="page" to="/profile">{user.name}</Link>
+                    </li> : <> <li><Link className="nav-link active" aria-current="page" to="/login">Login</Link></li>
+                      <li><Link className="nav-link active" aria-current="page" to="/vendor/register">Become a Seller</Link></li>
+                    </>}
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/cart">
+                        <img src={cart} height="30px" alt="cart logo" />
+                      </Link>
+                    </li>
+                    <li className="nav-item dropdown">
+                      <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown">
+                        Dropdown
+                      </Link>
+                      <ul className="dropdown-menu">
+                        <li><Link className="dropdown-item" to="#">Action</Link></li>
+                        <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                        <li>
+                          <hr className="dropdown-divider" />
+                        </li>
+                        <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div></>
+          )
+        }
+
       </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="offcanvas offcanvas-end text-bg-dark links" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title logo" id="offcanvasNavbar2Label">QUICKSHOPR</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button> 
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          {user ? <li class="nav-item">
-            <Link class="nav-link active"  aria-current="page" to="/profile">{user.name}</Link>
-          </li>:<li><Link class="nav-link active"  aria-current="page" to="/login">Login</Link></li>}
-          <li class="nav-item">
-            <Link class="nav-link" to="/cart">   
-            <img src={cart} height="30px" alt="cart logo"/>
-            </Link>
-          </li>
-          <li class="nav-item dropdown">
-            <Link class="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown">
-              Dropdown
-            </Link>
-            <ul class="dropdown-menu">
-              <li><Link class="dropdown-item" to="#">Action</Link></li>
-              <li><Link class="dropdown-item" to="#">Another action</Link></li>
-              <li>
-                <hr class="dropdown-divider"/>
-              </li>
-              <li><Link class="dropdown-item" to="#">Something else here</Link></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div></>
-        )
-      }
-     
-    </div>
-  </nav>
-   )
+    </nav>
+  )
 }
 
 

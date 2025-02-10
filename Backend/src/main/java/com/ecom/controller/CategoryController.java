@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,66 +23,51 @@ import jakarta.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin("*")
 public class CategoryController {
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@PostMapping
-	public ResponseEntity<?> addNewCategory(@RequestBody CategoryReqDto dto)
-	{
-		try
-		{
+	public ResponseEntity<?> addNewCategory(@RequestBody CategoryReqDto dto) {
+		try {
 			return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.addNewCategory(dto));
-		}
-		catch(RuntimeException e)
-		{
+		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage()));
 		}
 	}
-	
+
 	@DeleteMapping("/{catId}")
-	public ResponseEntity<?> deleteCategory(@PathVariable Integer catId)
-	{		
-		
-		return ResponseEntity.ok(categoryService.deleteCategory(catId));		
-		
+	public ResponseEntity<?> deleteCategory(@PathVariable Integer catId) {
+
+		return ResponseEntity.ok(categoryService.deleteCategory(catId));
+
 	}
-	
+
 	@GetMapping("/view")
-	public ResponseEntity<?> getAllCategories()
-	{
+	public ResponseEntity<?> getAllCategories() {
 		List<CategoryRespDto> list = categoryService.getAllCategories();
-		if(list.isEmpty())
-		{
+		if (list.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}
-		else
-		{
+		} else {
 			return ResponseEntity.ok(list);
 		}
 	}
-	
+
 	@GetMapping("/view/{catId}")
-	public ResponseEntity<?> getCategoryById(@PathVariable @Min(1) @Max(100) Integer catId)
-	{
+	public ResponseEntity<?> getCategoryById(@PathVariable @Min(1) @Max(100) Integer catId) {
 		return ResponseEntity.ok(categoryService.getCategoryById(catId));
 	}
-	
+
 	// get Category and their respective products
 	@GetMapping("/{catId}/products")
-	public ResponseEntity<?> getCategoryWithProducts(@PathVariable @Min(1) @Max(100) Integer catId)
-	{
-		try
-		{
+	public ResponseEntity<?> getCategoryWithProducts(@PathVariable @Min(1) @Max(100) Integer catId) {
+		try {
 			return ResponseEntity.ok(categoryService.getCategoryWithProducts(catId));
-			
-		}catch (RuntimeException e) {
+
+		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse(e.getMessage()));
 		}
 	}
-	
-	
 
 }

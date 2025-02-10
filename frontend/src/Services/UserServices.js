@@ -19,7 +19,7 @@ export async function register(user) {
 
 }
 
-export async function login(email, password) {
+export async function login(email, password)  {
     try {
         const url = createUrl("users/signin");
         const response = await axios.post(url, {email, password})
