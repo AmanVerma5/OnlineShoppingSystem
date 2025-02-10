@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecom.dtos.ApiResponse;
 import com.ecom.dtos.product.ProductReqDto;
 import com.ecom.dtos.product.ProductRespDto;
+import com.ecom.entities.Category;
 import com.ecom.entities.Product;
 import com.ecom.exceptions.ResourceNotFoundException;
+import com.ecom.repository.CategoryDao;
 import com.ecom.repository.ProductDao;
 
 @Service
@@ -26,6 +28,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductDao productDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
 
 
 
@@ -40,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ApiResponse addProduct(MultipartFile[] adsImages, String name, Double price, int quantityInStock,
-			String description) throws IOException {
+			String description,Integer catId) throws IOException {
 		Product product = new Product();
 		product.setName(name);
 		product.setPrice(price);
@@ -53,6 +58,8 @@ public class ProductServiceImpl implements ProductService {
 		}
 		product.setImage(arr);
 		product.setStatus(true);
+		Category category =  categoryDao.findById(catId).orElseThrow(() -> new ResourceNotFoundException("Invalid Category id"));
+		category.addProducts(product);
 		productDao.save(product);
 		return new ApiResponse("Product added with id - " + product.getId());
 	}
@@ -76,13 +83,6 @@ public class ProductServiceImpl implements ProductService {
 		return new ApiResponse("Product deleted Successfully");
 	}
 	
-
-//	@Override
-//	public ProductRespDto getCategoryAndProducts(Integer id) {
-//		// INCOMPLETE
-//		return null;
-//	}
-
 
 	
 
