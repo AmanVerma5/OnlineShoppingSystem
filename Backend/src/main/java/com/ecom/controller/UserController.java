@@ -103,7 +103,7 @@ public class UserController {
 	// Success resp - ResponseEntity with UserDetailsDto
 	// err - ResponseEntity with err mesg
 	@GetMapping("/user_details")
-	public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal UserDetails user) {
+	public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal CustomUserDetailsImpl user) {
 		try {
 			return ResponseEntity.ok(userService.getUserDetails(user.getUsername()));
 		} catch (RuntimeException e) {

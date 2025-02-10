@@ -27,9 +27,11 @@ public class SecurityConfiguration {
 
 	@Bean
 	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
-		http.csrf(c -> c.disable())
-				.authorizeHttpRequests(req -> req.requestMatchers("/users/signin", "/users/signup").permitAll()
-						.requestMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated())
+		http.csrf(c -> c.disable()).cors(c -> c.and())
+				.authorizeHttpRequests(req -> req
+						.requestMatchers("/users/signin", "/users/signup", "/swagger-ui/index.html").permitAll()
+						.requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers("/users/user_details")
+						.hasAnyAuthority("ADMIN", "CUSTOMER", "VENDOR").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.addFilterBefore(customJWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		http.authenticationProvider(daoAuthenticationProvider());

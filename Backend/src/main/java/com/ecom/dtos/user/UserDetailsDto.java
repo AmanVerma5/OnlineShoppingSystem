@@ -18,6 +18,8 @@ public class UserDetailsDto {
 	private String lastName;
 	
 	private String mobileNo;
+	
+	private String email;
 
 	private LocalDate dateOfBirth;
 	

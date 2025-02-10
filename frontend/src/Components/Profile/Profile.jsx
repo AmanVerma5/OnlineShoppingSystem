@@ -9,15 +9,19 @@ const Profile = () => {
     const [mobile, setMobile] = useState("");
     const [dob, setDob] = useState("");
 
+    const token = JSON.parse(localStorage.getItem("user")).jwt;
+
     useEffect(() => {
-        axios.get("http://localhost:8080/api/user-profile") //Replace Here
+        axios.get("http://localhost:8080/users/user_details", {
+            headers: { Authorization: `Bearer ${token}`}
+        }) //Replace Here
             .then((response) => {
                 const data = response.data;
                 setFirstName(data.firstName);
                 setLastName(data.lastName);
                 setEmail(data.email);
-                setMobile(data.mobile);
-                setDob(data.dob);
+                setMobile(data.mobileNo);
+                setDob(data.dateOfBirth);
             })
             .catch((error) => console.error("Error fetching profile data:", error));
     }, []);
@@ -26,7 +30,7 @@ const Profile = () => {
     const handleSave = () => {
         const updatedProfile = { firstName, lastName, email, mobile, dob };
 
-        axios.put("http://localhost:8080/api/user-profile", updatedProfile) // Replace Here
+        axios.put("http://localhost:8080/users/user-profile", updatedProfile) // Replace Here
             .then(() => {
                 alert("Profile updated successfully!");
                 setIsEditable(false);
