@@ -103,9 +103,10 @@ public class UserController {
 	// Success resp - ResponseEntity with UserDetailsDto
 	// err - ResponseEntity with err mesg
 	@GetMapping("/user_details")
-	public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal CustomUserDetailsImpl user) {
+	public ResponseEntity<?> getUserDetails() {
 		try {
-			return ResponseEntity.ok(userService.getUserDetails(user.getUsername()));
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			return ResponseEntity.ok(userService.getUserDetails(authentication.getName()));
 		} catch (RuntimeException e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
@@ -122,8 +123,7 @@ public class UserController {
 
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			UserDetails user = (UserDetails) authentication.getPrincipal();
-			return ResponseEntity.ok(userService.updateUser(updateUserDetails, user.getUsername()));
+			return ResponseEntity.ok(userService.updateUser(updateUserDetails, authentication.getName()));
 		} catch (RuntimeErrorException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -137,11 +137,11 @@ public class UserController {
 	// Success resp - ResponseEntity with success message
 	// err - ResponseEntity with err mesg
 	@PutMapping("/change_password")
-	public ResponseEntity<?> changePassword(@RequestBody ChangeUserPasswordDto changePasswordDto,
-			@AuthenticationPrincipal UserDetails user) {
-
+	public ResponseEntity<?> changePassword(@RequestBody ChangeUserPasswordDto changePasswordDto) {
+		System.out.println(changePasswordDto.toString());
 		try {
-			return ResponseEntity.ok(userService.changePassword(changePasswordDto, user.getUsername()));
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			return ResponseEntity.ok(userService.changePassword(changePasswordDto, authentication.getName()));
 		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -170,7 +170,7 @@ public class UserController {
 	// URL - http://host:port/users/addresses/{email}
 	// Method - GET
 	// Header -
-	// URL Query Parameter - 
+	// URL Query Parameter -
 	// Payload - none
 	// Success resp - ResponseEntity with List of Address
 	// err - ResponseEntity with err mesg
@@ -178,8 +178,7 @@ public class UserController {
 	public ResponseEntity<?> getUserAddresses() {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			UserDetails user = (UserDetails) authentication.getPrincipal();
-			return ResponseEntity.ok(addressService.geUserAddresses(user.getUsername()));
+			return ResponseEntity.ok(addressService.geUserAddresses(authentication.getName()));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
 		} catch (RuntimeException e) {

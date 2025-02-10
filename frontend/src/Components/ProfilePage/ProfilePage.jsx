@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Profile from '../Profile/Profile';
+import Password from '../Password/Password';
 import './ProfilePage.css';
 
 
 const Orders = () => <div><h2>Your Orders</h2></div>;
 const Addresses = () => <div><h2>Your Addresses</h2></div>;
-const Password = () => <div><h2>Your Password</h2></div>
+
 
 
 

@@ -30,7 +30,7 @@ public class SecurityConfiguration {
 		http.csrf(c -> c.disable()).cors(c -> c.and())
 				.authorizeHttpRequests(req -> req
 						.requestMatchers("/users/signin", "/users/signup", "/swagger-ui/index.html").permitAll()
-						.requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers("/users/user_details")
+						.requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers("/users/**")
 						.hasAnyAuthority("ADMIN", "CUSTOMER", "VENDOR").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.addFilterBefore(customJWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

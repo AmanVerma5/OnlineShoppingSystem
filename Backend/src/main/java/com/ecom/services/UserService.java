@@ -23,7 +23,7 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -48,7 +48,6 @@ public class UserService implements IUserService {
 //			throw new ResourceNotFoundException("Invalid Credentials");
 //		}
 //	}
-	
 
 	@Override
 	public UserDetailsDto getUserDetails(String email) {
@@ -70,16 +69,20 @@ public class UserService implements IUserService {
 	@Override
 	public ApiResponse changePassword(ChangeUserPasswordDto changePasswordDto, String email) {
 
-		User persistentUser = userRepository.getUserByEmailAndPassword(email, changePasswordDto.getCurrentPassword());
-
+		User persistentUser = userRepository.getUserByEmail(email);
 		if (persistentUser != null) {
-			persistentUser.setPassword(changePasswordDto.getNewPassword());
-			return new ApiResponse("Password updated successfully");
+			boolean isMatch = passwordEncoder.matches(changePasswordDto.getCurrentPassword(),
+					persistentUser.getPassword());
+			if (isMatch) {
+				persistentUser.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+				return new ApiResponse("Password updated successfully");
+			} else {
+				throw new ApiException("Invalid current password");
+			}
 		} else {
-			throw new ApiException("Invalid current password");
+			throw new ApiException("Invalid Email");
 		}
 
 	}
-
 
 }

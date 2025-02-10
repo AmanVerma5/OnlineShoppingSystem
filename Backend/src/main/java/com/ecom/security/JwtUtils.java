@@ -79,4 +79,5 @@ public class JwtUtils {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, userId, authorities);
 		return token;
 	}
+	
 }

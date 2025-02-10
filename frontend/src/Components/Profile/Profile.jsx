@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Profile = () => {
     const [isEditable, setIsEditable] = useState(false);
@@ -28,11 +29,13 @@ const Profile = () => {
 
   
     const handleSave = () => {
-        const updatedProfile = { firstName, lastName, email, mobile, dob };
+        const updatedProfile = { firstName, lastName, email, "mobileNo":mobile, "dateOfBirth":dob };
 
-        axios.put("http://localhost:8080/users/user-profile", updatedProfile) // Replace Here
+        axios.put("http://localhost:8080/users/update", updatedProfile, {
+            headers: {Authorization : `Bearer ${token}`}
+        }) // Replace Here
             .then(() => {
-                alert("Profile updated successfully!");
+                toast.success("Profile Updated Successfully");
                 setIsEditable(false);
             })
             .catch((error) => console.error("Error updating profile:", error));
