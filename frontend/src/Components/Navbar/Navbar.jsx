@@ -44,9 +44,9 @@ const Navbar = ({ flag }) => {
                 </div>
                 <div className="offcanvas-body">
                   <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    {user ? <li className="nav-item">
+                    {user ? <><li className="nav-item">
                       <Link className="nav-link active" aria-current="page" to="/profile">{user.name}</Link>
-                    </li> : <> <li><Link className="nav-link active" aria-current="page" to="/login">Login</Link></li>
+                    </li> </> : <> <li><Link className="nav-link active" aria-current="page" to="/login">Login</Link></li>
                       <li><Link className="nav-link active" aria-current="page" to="/vendor/register">Become a Seller</Link></li>
                     </>}
                     <li className="nav-item">
@@ -54,7 +54,11 @@ const Navbar = ({ flag }) => {
                         <img src={cart} height="30px" alt="cart logo" />
                       </Link>
                     </li>
-                    <li className="nav-item dropdown">
+                    {user && <li className="nav-item">
+                        <div className="nav-link active">Logout</div>
+                      </li>}
+
+                    {/* <li className="nav-item dropdown">
                       <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown">
                         Dropdown
                       </Link>
@@ -66,7 +70,7 @@ const Navbar = ({ flag }) => {
                         </li>
                         <li><Link className="dropdown-item" to="#">Something else here</Link></li>
                       </ul>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div></>

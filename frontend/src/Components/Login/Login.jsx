@@ -34,13 +34,22 @@ const Login = () => {
     //   localStorage.setItem("user",JSON.stringify(user))
     //   navigate("/")
 
-    const response = await login(email, password);
-    if (response.status == 200) {
-      toast.success(response.data.message);
-      localStorage.setItem("user",JSON.stringify(response.data))
-      navigate("/")
+    try {
+      const response = await login(email, password);
+      if (response.status == 200) {
+        console.log(response);
+        toast.success(response.data.message);
+        localStorage.setItem("user", JSON.stringify(response.data))
+        if (response.data.role === `VENDOR`) {
+          navigate("/vendor")
+        } else {
+          navigate("/")
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-    
+
   }
 
 

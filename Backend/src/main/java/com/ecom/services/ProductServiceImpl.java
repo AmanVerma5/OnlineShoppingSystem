@@ -122,8 +122,27 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductResponseDto> getAllProductsOfVendor(String email) {
 		User persistentUser = userRepository.getUserByEmail(email);
-		return persistentUser.getVendorProducts().stream().map(products -> modelMapper.map(products, ProductResponseDto.class))
-				.collect(Collectors.toList());
+		return persistentUser.getVendorProducts().stream().filter(product -> product.isStatus() != false)
+				.map(products -> modelMapper.map(products, ProductResponseDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ProductRespDto> getAllProductsOfVendorWithImage(String email) {
+		User persistentUser = userRepository.getUserByEmail(email);
+		return persistentUser.getVendorProducts().stream()
+				.map(products -> modelMapper.map(products, ProductRespDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public ApiResponse updateVendorProduct(ProductResponseDto updatedProductDto) {
+		Product persistentProduct = productDao.findById(updatedProductDto.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid productId"));
+		persistentProduct.setName(updatedProductDto.getName());
+		persistentProduct.setPrice(updatedProductDto.getPrice());
+		persistentProduct.setQuantityInStock(updatedProductDto.getQuantityInStock());
+		persistentProduct.setDescription(updatedProductDto.getDescription());
+		
+		return new ApiResponse("Product Details Updated");
 	}
 
 }

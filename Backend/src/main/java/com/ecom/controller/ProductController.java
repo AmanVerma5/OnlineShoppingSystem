@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +47,21 @@ public class ProductController {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			List<ProductResponseDto> productsDto = prodService.getAllProductsOfVendor(authentication.getName());
+			if (productsDto.size() == 0) {
+				return ResponseEntity.ok().body(new ApiResponse("No Products Added"));
+			} else {
+				return ResponseEntity.ok(productsDto);
+			}
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+
+	@GetMapping("/vendor_products_with_image")
+	public ResponseEntity<?> getVendorProductsWithImage() {
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			List<ProductRespDto> productsDto = prodService.getAllProductsOfVendorWithImage(authentication.getName());
 			if (productsDto.size() == 0) {
 				return ResponseEntity.ok().body(new ApiResponse("No Products Added"));
 			} else {
@@ -96,5 +112,14 @@ public class ProductController {
 //			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 //		}
 //	}
+
+	@PutMapping("/update_product")
+	public ResponseEntity<?> updateVendorProduct(@RequestBody ProductResponseDto updatedProductDto) {
+		try {
+			return ResponseEntity.ok(prodService.updateVendorProduct(updatedProductDto));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
 
 }

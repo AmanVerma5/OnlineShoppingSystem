@@ -83,8 +83,9 @@ public class UserController {
 
 			Authentication authToken = authenticationManager.authenticate(token);
 			CustomUserDetailsImpl user = (CustomUserDetailsImpl) authToken.getPrincipal();
-			return ResponseEntity.status(HttpStatus.OK).body(new AuthResponse("Successfully Logged in",
-					user.getUser().getFirstName(), jwtUtils.generateJwtToken(authToken)));
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new AuthResponse("Successfully Logged in", user.getUser().getFirstName(),
+							user.getUser().getUserRole().name(), jwtUtils.generateJwtToken(authToken)));
 		} catch (RuntimeException e) {
 			System.out.println(e);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Credentials");

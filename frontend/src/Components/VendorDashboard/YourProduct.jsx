@@ -25,13 +25,12 @@ export default function YourProduct() {
         axios.get("http://localhost:8080/products/vendor_products", {
             headers: { Authorization: `Bearer ${token}` }
         })
-        .then((response) => {
-            setProducts(response.data);
-            setIsLoading(false);
-        }).catch((error) => {
-            console.log(error);
-            setIsLoading(false);
-        });
+            .then((response) => {
+                setProducts(response.data);
+                setIsLoading(false);
+            }).catch((error) => {
+                setIsLoading(false);
+            });
     }, [token]);
 
     const handleInputChange = (e) => {
@@ -57,30 +56,31 @@ export default function YourProduct() {
 
     const handleSave = (id) => {
         // Send PUT request to save the updated product
-        axios.put(`http://localhost:8080/products/${id}`, editedProduct, {
+        axios.put(`http://localhost:8080/products/update_product`, editedProduct, {
             headers: { Authorization: `Bearer ${token}` }
         })
-        .then((response) => {
-            const updatedProducts = products.map(product =>
-                product.id === id ? response.data : product
-            );
-            setProducts(updatedProducts);
-            setEditingId(null); // Clear editing state
-        }).catch((error) => {
-            console.error(error);
-        });
+            .then((response) => {
+                setProducts((prevProducts) =>
+                    prevProducts.map((product) =>
+                        product.id === id ? { ...product, ...editedProduct } : product
+                    )
+                );
+                setEditingId(null); // Clear editing state
+            }).catch((error) => {
+                console.error(error);
+            });
     };
 
     const handleDelete = (id) => {
         // Send DELETE request to delete the product
-        axios.delete(`http://localhost:8080/products/${id}`, {
+        axios.delete(`http://localhost:8080/products/delete/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
-        .then(() => {
-            setProducts(products.filter(product => product.id !== id));
-        }).catch((error) => {
-            console.error(error);
-        });
+            .then(() => {
+                setProducts(products.filter(product => product.id !== id));
+            }).catch((error) => {
+                console.error(error);
+            });
     };
 
     const handleAddProduct = () => {
@@ -88,17 +88,17 @@ export default function YourProduct() {
         axios.post("http://localhost:8080/products/add", newProduct, {
             headers: { Authorization: `Bearer ${token}` }
         })
-        .then((response) => {
-            setProducts([...products, response.data]); // Add the new product to the list
-            setNewProduct({
-                name: '',
-                price: '',
-                quantityInStock: '',
-                description: ''
-            }); // Reset the add product form
-        }).catch((error) => {
-            console.error(error);
-        });
+            .then((response) => {
+                setProducts([...products, response.data]); // Add the new product to the list
+                setNewProduct({
+                    name: '',
+                    price: '',
+                    quantityInStock: '',
+                    description: ''
+                }); // Reset the add product form
+            }).catch((error) => {
+                console.error(error);
+            });
     };
 
     return (

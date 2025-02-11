@@ -25,8 +25,9 @@ public interface ProductService {
 
 	List<ProductResponseDto> getAllProductsOfVendor(String name);
 
-	
-	
+	List<ProductRespDto> getAllProductsOfVendorWithImage(String name);
+
+	ApiResponse updateVendorProduct(ProductResponseDto updatedProductDto);
 	
 	
 	

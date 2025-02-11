@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { getCategories } from "../../Services/ProductService";
+import { toast } from "react-toastify";
 
 export default function AddProduct() {
 
@@ -12,21 +14,23 @@ export default function AddProduct() {
     const [categories, setCategories] = useState([]);    // Categories for dropdown
 
     const user = localStorage.getItem("user");
-    let token = ""; 
+    let token = "";
     if (user != null) {
         token = JSON.parse(user).jwt;
     }
 
     // Fetch categories on component mount
     useEffect(() => {
-        axios.get("http://localhost:8080/categories/view", {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then((response) => {
+        const fetchCategory= async ()=>{
+
+            const response = await getCategories();
+            if (response.data != null) {
                 setCategories(response.data);
-            }).catch((error) => {
-                console.log(error);
-            });
+            } else {
+                toast.error(response.error)
+            }
+        }
+        fetchCategory();
     }, [token]);
 
     const handleImageChange = (e) => {
