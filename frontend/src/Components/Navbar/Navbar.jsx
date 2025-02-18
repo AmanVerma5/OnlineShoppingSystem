@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './Navbar.css';
 import Searchbar from '../SearchBar/Searchbar';
 import logo from '../../images/logo.png';
 import cart from '../../images/cart.png';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,7 @@ const Navbar = ({ flag }) => {
 
   const [show, setShow] = useState('true')
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShow(flag)
@@ -21,6 +23,11 @@ const Navbar = ({ flag }) => {
     }
   }, [flag])
 
+
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" aria-label="Offcanvas navbar large">
@@ -55,8 +62,8 @@ const Navbar = ({ flag }) => {
                       </Link>
                     </li>
                     {user && <li className="nav-item">
-                        <div className="nav-link active">Logout</div>
-                      </li>}
+                      <div className="nav-link active logout" onClick={logout}>Logout</div>
+                    </li>}
 
                     {/* <li className="nav-item dropdown">
                       <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown">

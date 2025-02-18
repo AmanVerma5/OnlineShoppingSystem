@@ -6,12 +6,16 @@ function createUrl(url) {
     return `${serverUrl}/${url}`;
 }
 
-const token = JSON.parse(localStorage.getItem("user")).jwt;
+const user = localStorage.getItem("user");
+let token = "";
+if (user != null) {
+    token = JSON.parse(user).jwt;
+}
 
 export async function getCategories() {
     try {
         const url = createUrl("categories/view");
-        const response = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } });
+        const response = await axios.get(url);
         return response;
     } catch (error) {
         return { status: "error", error };

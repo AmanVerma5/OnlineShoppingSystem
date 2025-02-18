@@ -15,7 +15,7 @@ const Product = ({ item }) => {
   return (
     <div className="card mx-2 product-container" style={{ width: "18rem" }}>
       <img
-        src={item.image}
+        src={`data:image/jpeg;base64,${item.image}`}
         class="card-img-top"
         alt="..."
         style={{ height: "50%" }}
@@ -23,8 +23,7 @@ const Product = ({ item }) => {
       <div className="card-body">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+         {item.description}
         </p>
       </div>
       <ul className="list-group list-group-flush">

@@ -1,6 +1,6 @@
-import c1 from'../../images/c1.jpg';
-import c2 from '../../images/c2.jpg';
-import i23 from '../../images/i23.jpg';
+import c1 from'../../images/image1.webp';
+import c2 from '../../images/image2.webp';
+import i23 from '../../images/image3.webp';
 
 const Carousel=()=>{
     return(

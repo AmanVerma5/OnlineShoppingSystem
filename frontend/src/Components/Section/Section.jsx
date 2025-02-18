@@ -5,11 +5,8 @@ import { getCategories } from "../../Services/ProductService";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
-
 const Section = () => {
-
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState([]);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -23,15 +20,40 @@ const Section = () => {
       }
     }
     fetchCategories();
-    const fetchProducts = (catId) => {
-      const response = axios.get(`http://localhost:8080/categories/${catId}/products`)
-        .then((response) => {       
-          setProduct(response.data)
-         })
-        .catch((error) => { console.log(error) })
+  }, []);
+
+  useEffect(() => {
+    setProduct([]);
+    
+    const fetchAllProducts = async () => {
+      try {
+        const promises = category.map(category => 
+          axios.get(`http://localhost:8080/categories/${category.id}/products`)
+        );
+        
+        const responses = await Promise.all(promises);
+        
+        // Map through responses and add categoryId to each product
+        const allProducts = responses.flatMap(response => {
+          const categoryId = response.data.id; // Get the category ID from the response
+          return response.data.products.map(product => ({
+            ...product,
+            categoryId // Add categoryId to each product
+          }));
+        });
+        
+        setProduct(allProducts);
+      } catch (error) {
+        console.log(error);
+        toast.error("Error fetching products");
+      }
+    };
+  
+    if (category.length > 0) {
+      fetchAllProducts();
     }
-    fetchProducts(2)
-  }, [])
+  }, [category]);
+
 
   return (
     <div>
@@ -41,7 +63,7 @@ const Section = () => {
             <h2>{c.categoryName}</h2>
             <div className="product-list container-fluid">
               {product
-                .filter((p) => p.category_id === c.id)
+                .filter((p) => p.categoryId === c.id)
                 .map((p) => (
                   <Product key={p.id} item={p} />
                 ))}
