@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\sunbeam\Desktop\Project\OnlineShoppingSystem\Backend"/>
 			<item value="C:\Users\Aman\Desktop\OnlineShoppingSystem\Backend"/>
 		</list>
 		<list key="projectNameTemplate">
