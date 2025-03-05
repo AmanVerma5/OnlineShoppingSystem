@@ -77,4 +77,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return modelMapper.map(category, CategoryProductsDto.class);
 	}
 
+	@Override
+	public ApiResponse updateCategory(Integer catId, CategoryReqDto dto) {
+		Category persistentCat = categoryDao.findById(catId)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Category Id"));
+		persistentCat.setCategoryName(dto.getCategoryName());
+		return new ApiResponse("Category Updated");
+	}
+
 }
