@@ -13,8 +13,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CategoryRespDto extends BaseDto {
 	private String categoryName;
-	
-	
-	
 
 }

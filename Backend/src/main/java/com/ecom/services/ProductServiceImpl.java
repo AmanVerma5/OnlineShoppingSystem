@@ -141,7 +141,7 @@ public class ProductServiceImpl implements ProductService {
 		persistentProduct.setPrice(updatedProductDto.getPrice());
 		persistentProduct.setQuantityInStock(updatedProductDto.getQuantityInStock());
 		persistentProduct.setDescription(updatedProductDto.getDescription());
-		
+
 		return new ApiResponse("Product Details Updated");
 	}
 

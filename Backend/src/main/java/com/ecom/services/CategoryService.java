@@ -23,7 +23,5 @@ public interface CategoryService {
 	CategoryProductsDto getCategoryWithProducts(@Min(1) @Max(100) Integer catId);
 
 	ApiResponse updateCategory(Integer catId, CategoryReqDto dto);
-	
-
 
 }
